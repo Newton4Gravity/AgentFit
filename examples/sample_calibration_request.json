@@ -1,0 +1,44 @@
+{
+  "user": {
+    "user_id": "adalberto",
+    "display_name": "Adalberto",
+    "skill_level": "beginner",
+    "preferred_style": "step_by_step",
+    "risk_tolerance": "low",
+    "privacy_preference": "high",
+    "prefers_open_source": true,
+    "prefers_local_first": true,
+    "likes_markdown": true,
+    "wants_full_code": true,
+    "project_anchor_mode": true
+  },
+  "device": {
+    "device_id": "raspberry-pi-4",
+    "user_id": "adalberto",
+    "device_name": "Raspberry Pi 4",
+    "device_type": "server",
+    "operating_system": "Debian",
+    "ram_gb": 8,
+    "has_gpu": false,
+    "battery_sensitive": false,
+    "network_quality": "good",
+    "can_run_python": true,
+    "can_run_docker": true,
+    "can_access_files": true
+  },
+  "task": {
+    "category": "knowledge_base",
+    "complexity": "complex",
+    "requires_tools": true,
+    "requires_file_access": true,
+    "requires_web_access": false,
+    "requires_code_execution": true,
+    "estimated_sensitivity": "high",
+    "destructive_potential": true
+  },
+  "available_models": [
+    "small_local_model",
+    "fast_cloud_model",
+    "strong_reasoning_model"
+  ]
+}
