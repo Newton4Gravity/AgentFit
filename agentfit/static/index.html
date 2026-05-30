@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AgentFit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 32px 18px;
+      line-height: 1.5;
+      background: #f7f7f8;
+      color: #18181b;
+    }
+    .card {
+      background: white;
+      border: 1px solid #e4e4e7;
+      border-radius: 14px;
+      padding: 20px;
+      margin: 18px 0;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    textarea, input, select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      margin: 6px 0 12px;
+      border-radius: 8px;
+      border: 1px solid #d4d4d8;
+      font: inherit;
+    }
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #18181b;
+      color: white;
+    }
+    pre {
+      overflow: auto;
+      background: #18181b;
+      color: #f4f4f5;
+      padding: 14px;
+      border-radius: 10px;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+  </style>
+</head>
+<body>
+  <h1>AgentFit</h1>
+  <p><strong>Adaptive calibration for AI agents.</strong></p>
+  <p>AgentFit decides how an agent should behave based on the user, device, task, risk level, privacy preference, and available models.</p>
+
+  <div class="card">
+    <h2>Quick Calibration Test</h2>
+    <p>Edit the JSON and submit it to <code>/calibrate</code>.</p>
+    <textarea id="payload" rows="28">{
+  "user": {
+    "user_id": "adalberto",
+    "display_name": "Adalberto",
+    "skill_level": "beginner",
+    "preferred_style": "step_by_step",
+    "risk_tolerance": "low",
+    "privacy_preference": "high",
+    "prefers_open_source": true,
+    "prefers_local_first": true,
+    "likes_markdown": true,
+    "wants_full_code": true,
+    "project_anchor_mode": true
+  },
+  "device": {
+    "device_id": "iphone-main",
+    "user_id": "adalberto",
+    "device_name": "iPhone",
+    "device_type": "phone",
+    "operating_system": "iOS",
+    "ram_gb": 8,
+    "has_gpu": false,
+    "battery_sensitive": true,
+    "network_quality": "good",
+    "can_run_python": false,
+    "can_run_docker": false,
+    "can_access_files": true
+  },
+  "task": {
+    "category": "coding",
+    "complexity": "medium",
+    "requires_tools": true,
+    "requires_file_access": true,
+    "requires_web_access": false,
+    "requires_code_execution": true,
+    "estimated_sensitivity": "medium",
+    "destructive_potential": false
+  },
+  "available_models": [
+    "small_local_model",
+    "fast_cloud_model",
+    "strong_reasoning_model"
+  ]
+}</textarea>
+    <button onclick="calibrate()">Calibrate Agent</button>
+  </div>
+
+  <div class="card">
+    <h2>Result</h2>
+    <pre id="result">No result yet.</pre>
+  </div>
+
+  <div class="card">
+    <h2>Useful Links</h2>
+    <ul>
+      <li><a href="/docs">API Docs</a></li>
+      <li><a href="/health">Health Check</a></li>
+    </ul>
+  </div>
+
+<script>
+async function calibrate() {
+  const result = document.getElementById("result");
+  try {
+    const payload = JSON.parse(document.getElementById("payload").value);
+    const res = await fetch("/calibrate", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    result.textContent = JSON.stringify(data, null, 2);
+  } catch (err) {
+    result.textContent = "Error: " + err.message;
+  }
+}
+</script>
+</body>
+</html>
